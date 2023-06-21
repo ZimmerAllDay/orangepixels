@@ -1,208 +1,132 @@
-
-<!--
-    source based on fiddle by @jokie
-       see https://jsfiddle.net/a6mnft3d/34/
--->
-
-
-<style>
-body {
-  text-align:center;
-}
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
 
 
-#spritesheet {
-  display: grid;
+  <style type="text/css">
+   *,
+   * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
 
-  /* 24 columns x 24 rows
-       tile / sprite 24 x 24 px - width x height
-   */
-  grid-template-columns: repeat(24, 24px);
-  grid-template-rows: repeat(24, 24px);
-  width: 576px;    /*   24 x 24px = 576px */
-  height: 576px;     /*   24 x 24px  = 576px */
-  margin: auto;
-
-  background: url(https://github.com/ZimmerAllDay/orangepixels/blob/main/spritesheet.png?raw=true);
-
-  transform: scale(1);    /* make smaller not working - try again later sorry; show with 50% zoom e.g. half the original size */
-  transform-origin: 0 0;
-  border: 2px solid #ccc;
-}
+   #canvas {
+       -webkit-touch-callout: none;
+       -webkit-user-select: none;
+       -khtml-user-select: none;
+       -moz-user-select: none;
+       -ms-user-select: none;
+       user-select: none;
+   }
 
 
-.sprite {
-  width: 24px;
-  height: 24px;
-}
+   .row {
+       height: 14px;
+   }
+
+   .cell {
+       width: 14px;
+       height: 14px;
+       display: inline-block;
+   }
+
+   .grid .cell {
+       border-top: 1px solid #aaa;
+       border-right: 1px solid #aaa;
+   }
+
+   .cell.filled {
+       background-color: #000000;
+   }
+
+   textarea {
+       width: 400px;
+       height: 200px;
+       font-size: 9px;
+   }
+  </style>
 
 
-#canvas {
-  width: 240px;     /* 10x => 1020px     -- 2 x 102px = 204px */
-  height: 240px;     /* 10x => 320px       -- 2 x 32px = 64px */
-  filter: blur(.0px);
-  border: 2px solid #ccc;
-  margin: 10px;
-  background-color: #eee;
-}
 
-#cleardiv {
-  margin:auto;
-  text-align:center;
-  }
-
-  .sprite.selected {
-  background-color: rgba(255, 153, 0, 0.3);
-}
-
-</style>
+  <title>Bitcoin Orange Pixels D.I.Y. Painter - Yes, You Can! - Draw Your Own 24x24px Art That You Own 100% Forever</title>
 
 
- <h1>
-  BTC Orange Pixel Previewer
-  </h1>
-  <p>
-   New to BTC Orange Pixels? See the <a href="https://github.com/ZimmerAllDay/orangepixels">BTC Orange Pixels Getting Started Guide and Documentation »</a>
-</p>
- <p>     
-  Directions: click on the map below to preview your BTC Orange Pixels.
-  Press clear to start over.<br/><br/>
-  When you're happy, use the attribute list generated.
-  </p>
-  <div id="spritesheet"></div>
+  <script src="lib/jquery-3.2.1.min.js"></script>
 
-  <canvas id="canvas" width="240" height="240"></canvas>
+  <script src="pixelart.js"></script>
+  <script src="designs.js"></script>
+  <script src="designs-punks.js"></script>
 
-  <div id="cleardiv">
-   <button id="clear">Clear</button>
+  <!-- move lib/setup.js to end of file/page - no need to use onload? - better (more modern) practice?
+       why? why not?
+    -->
+  <script src="setup.js"></script>
+</head>
+ <body>
+
+  <div id="new-explanatory-text" style="margin: 20px; padding: 10px; border: 1px solid #ccc;">
+      <h2>Bitcoin Orange Pixels D.I.Y. Painter - Yes, You Can! - Draw Your Own 24x24 Art That You Own 100% Forever</h2>
+
+
+      <p>
+        New to BTC Orange Pixels? See the <a href="https://github.com/ZimmerAllDay/orangepixels">BTC Orange Pixels Getting Started Guide and Documentation »</a>
+     </p>
+
+      <p>
+        Help - Left click puts a pixel down, right click clears it.
+        <br>
+        ↓ Print - Generates the g numbers in the textbox to copy-n-paste.
+        <br>
+        ↑ Read - Reads the g numbers in the textbox to draw pixels in canvas.
+        <br>
+        ⊘ Reset - Clears the canvas - resets to empty.
+        <br>
+        Try Random (Design)  - Draws ready-made pixels design.
+      </p>
   </div>
-  <p id="output"></p>
-
-  BTC Orange Pixels is a project by <a href="https://twitter.com/zimmerallday">@ZimmerAllDay</a>.
-  Learn more on the <a href="https://discord.gg/swBWd827qM">Ordinal Punks discord</a> (in the #generative-orc-721 channel)
-  and the <a href="https://github.com/ordbase/generative-orc-721">generative-orc-721 github</a>
-  <footer>This previewer adopted from a fiddle written by Jokie </footer>
 
 
-<!-- note: requires jquery 3.4.1 -->
-<script scr="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <div id="canvas" class="grid" oncontextmenu="return false;">
+  </div>
 
-  <script>
- // 24 columns x 24 rows    (576 tiles)
- //    tile / sprite 24 x 24px - width x height
- //
-let cols = 24;
-let rows = 24;
-let tiles = cols * rows;
-let width = 24;
-let height = 24;
 
-let scaleFactor = 10;
+  <div>
+      <button id="reset">
+    ⊘ Reset
+      </button>
+      <button id="print">
+    ↓ Print
+      </button>
+      <button id="read">
+    ↑ Read
+      </button>
+      <button id="redraw">
+    ↺ Redraw
+      </button>
+      <button id="design">
+        Try Random (Design)
+      </button>
 
-let canvas = document.getElementById('canvas');
-canvas.width = width * scaleFactor;
-canvas.height = height * scaleFactor;
+      <input name="grid" type="checkbox" id="grid" checked>
+      <label for="grid">Grid</label>
+  </div>
+  <div>
+      <textarea id="out" spellcheck="false"></textarea>
+  </div>
 
-let ctx = canvas.getContext('2d');
-ctx.imageSmoothingEnabled = false; // Disable image smoothing
+  <p>
+    Bitcoin Orange Pixels is a project
+    by <a href="https://twitter.com/zimmerallday">@ZimmerAllDay</a>.
+    Learn more on the <a href="https://discord.gg/swBWd827qM">Ordinal Punks discord</a> (in the #generative-orc-721 channel)
+    and the <a href="https://github.com/ordbase/generative-orc-721">generative-orc-721 github</a>
+    <footer>This pixel drawing tool based on code written by
+     <a href="https://mooncatrescue.com/pixeleditor">Ponderware Ltd. (Mooncat Rescue)</a>.</p>
+    </p>
 
-let img = new Image();
-img.src = 'https://github.com/ZimmerAllDay/orangepixels/blob/main/spritesheet.png?raw=true';
+    </footer>
 
-let selectedSprites = [];
-let isMouseDown = false;
-
-img.onload = function () {
-    for (let i = 0; i < tiles; i++) {
-        let sprite = document.createElement('div');
-        sprite.className = 'sprite';
-
-        let x = i % cols;
-        let y = Math.floor(i / cols);
-
-        let pos = `-${x * width}px -${y * height}px`;
-        sprite.style.backgroundPosition = pos;
-
-        sprite.addEventListener('mousedown', () => {
-            const index = selectedSprites.indexOf(i);
-            if (index !== -1) {
-                // Deselect the sprite
-                selectedSprites.splice(index, 1);
-            } else {
-                // Select the sprite
-                selectedSprites.push(i);
-            }
-
-            sprite.classList.toggle('selected');
-        });
-
-        sprite.addEventListener('mouseover', () => {
-            if (isMouseDown) {
-                const index = selectedSprites.indexOf(i);
-                if (index === -1) {
-                    selectedSprites.push(i);
-                    sprite.classList.add('selected');
-                } else {
-                    selectedSprites.splice(index, 1);
-                    sprite.classList.remove('selected');
-                }
-            }
-        });
-
-        document.getElementById('spritesheet').appendChild(sprite);
-    }
-};
-
-document.getElementById('spritesheet').addEventListener('mousedown', () => {
-    isMouseDown = true;
-});
-
-document.getElementById('spritesheet').addEventListener('mouseup', () => {
-    isMouseDown = false;
-    updateCanvas();
-});
-
-document.getElementById('spritesheet').addEventListener('mouseleave', () => {
-    if (isMouseDown) {
-        const sprites = document.getElementsByClassName('sprite');
-        for (let j = 0; j < sprites.length; j++) {
-            sprites[j].classList.remove('selected');
-        }
-        selectedSprites = [];
-    }
-});
-
-document.getElementById('clear').addEventListener('click', () => {
-    const sprites = document.getElementsByClassName('sprite');
-    for (let j = 0; j < sprites.length; j++) {
-        sprites[j].classList.remove('selected');
-    }
-    selectedSprites = [];
-    updateCanvas();
-});
-
-function updateCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const selectedIndex of selectedSprites) {
-        const spriteIndex = selectedIndex % tiles;
-        const spriteX = spriteIndex % cols;
-        const spriteY = Math.floor(spriteIndex / cols);
-
-        ctx.drawImage(
-            img,
-            spriteX * width,
-            spriteY * height,
-            width,
-            height,
-            0,
-            0,
-            width * scaleFactor,
-            height * scaleFactor
-        );
-    }
-
-    output.textContent = '"g":[' + selectedSprites.map(sprite => sprite % tiles).join(', ') + ']';
-}
-
-  </script>
+  </p>
+</body>
+</html>
