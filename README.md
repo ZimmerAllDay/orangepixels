@@ -64,7 +64,7 @@ The string can be used for the "g" values of a colleciton inscription, like this
 
 Once you have generated your "g" values using these or other methods, you can paste the values into the to [generate.rb](https://github.com/ZimmerAllDay/orangepixels/blob/main/generate.rb) file which will use the spritesheet to recreate the image:
 
-![image file](./tmp/orangepix1@4x.png)
+![image file](./images/orangepix1@4x.png)
 
 You can also paste the string of "g" values into the text box on the painter and click the 'Read' button to see your image.
 
