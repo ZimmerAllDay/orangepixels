@@ -55,11 +55,16 @@ The string can be used for the "g" values of a colleciton inscription, like this
    "g":[128, 129, 130, 131, 132, 133, 134, 151, 159, 174, 184, 198, 208, 222, 232, 246, 256, 270, 272, 273, 274, 275, 276, 277, 278, 279, 280, 293, 294, 296, 297, 299, 300, 301, 303, 304, 316, 317, 320, 321, 322, 323, 324, 325, 326, 327, 328, 341, 342, 344, 345, 346, 347, 350, 351, 352, 366, 376, 390, 393, 394, 395, 396, 397, 398, 399, 400, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 437, 438, 439, 440, 441, 442, 446, 447, 448, 449, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 510, 511, 512, 513, 514, 515, 516, 517, 518, 519, 520, 521, 534, 536, 537, 538, 539, 540, 541, 542, 543, 544, 558, 562, 563, 564, 565, 566, 567]
 }
 ```
+### Method #3 - Visit the Ordinal Punks discord Generative ORC-721 channel and we'll help you along!
 
- 
+1. Join the [Ordinal Punks discord](https://discord.gg/yKGzCc9N) and visit the Generative ORC-721 channel (please keep the general chat channel clean!)
+2. Post your best effort at a black and white/1-bit image to the discord, and I or @geraldb will convert the image to "g" values for you.
+
 Once you have generated your "g" values using these or other methods, you can paste the values into the to [generate.rb](https://github.com/ZimmerAllDay/orangepixels/blob/main/generate.rb) file which will use the spritesheet to recreate the image:
 
 ![image file](./tmp/orangepix1@4x.png)
+
+You can also paste the string of "g" values into the text box on the painter and click the 'Read' button to see your image.
 
 ## Additional Features
 Want to use a different color from Bitcoin Orange? Follow these steps:
