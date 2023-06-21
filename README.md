@@ -4,7 +4,9 @@ Orange Pixels is a [Generative ORC-721](https://github.com/ordbase/generative-or
 ![punk image](./images/orangepix1@8x.png)       ![smile image](./images/smile@8x.png)
 
 ## Is Orange Pixels Recursive?
-By definition, the ORC-721 protocol is recursive since images are composed by referencing previously inscribed source data via the protocol. The protocol layers the source images from [the spritesheet](./spritesheet.png) to create a composite. Minted pieces are JSON files that need rendered by an external process to be viewed as images. 
+By definition, the ORC-721 protocol is recursive since images are composed by referencing previously inscribed source data via the protocol. The protocol layers the source images from the [spritesheet](./spritesheet.png) to create a composite. Minted pieces are JSON files that need rendered by an external process to be viewed as images. 
+
+> The spritesheet is [inscription #13069312](https://ordinals.com/inscription/c0a4f0a19765b944bfea57cb51105a76e1c6a724a533ed46a288059dc9a2a963i0)
 
 As with other methods of inscribing recursively, experimentation is required to allow ideas for maximum composability and customization to rise to the top, and there are many lines of thinking when it comes reading and rendering pre-inscribed data. I support experimentation with multiple methods for storing and referencing data on chain and taking what works best from all of them.
 
@@ -24,7 +26,7 @@ Inscribers can use "g" values of 0 - 575 to represent any pixel position(s) in a
 Following are 2 ways to generate the "g" values to will use to create an image, although it is easy to contceive others methods.
 
 ### Method #1 - Use the painter created by @geraldb to generate a pre-designed or custom image
-1. Open [the painter](https://zimmerallday.github.io/orangepixels/index)
+1. Open the [painter](https://zimmerallday.github.io/orangepixels/index)
 2. Upon load, one of the pre-designed images will randomly show in the pixel canvas. The "g" values for the image are shown below in the text box, see example:
 
 
