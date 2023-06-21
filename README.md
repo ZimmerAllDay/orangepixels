@@ -6,7 +6,7 @@ Orange Pixels is a [Generative ORC-721](https://github.com/ordbase/generative-or
 ## Is Orange Pixels Recursive?
 By definition, the ORC-721 protocol is recursive since images are composed by referencing previously inscribed source data via the protocol. The protocol layers the source images from [the spritesheet](./spritesheet.png) to create a composite. Minted pieces are JSON files that need rendered by an external process to be viewed as images. 
 
-As with other methods of inscribing recursively, experimentation is required to allow ideas for maximum composability and customization to rise to the top, and there are many lines of thinking when it comes reading and rendering pre-inscribed data. I support the experimentation with multiple methods for storing and referencing data on chain.
+As with other methods of inscribing recursively, experimentation is required to allow ideas for maximum composability and customization to rise to the top, and there are many lines of thinking when it comes reading and rendering pre-inscribed data. I support experimentation with multiple methods for storing and referencing data on chain and taking what works best from all of them.
 
 ## How Does Orange Pixels Work?
 Orange pixels references a 576 tile spritesheet (24 x 24).
